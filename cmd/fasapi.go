@@ -2,13 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/NC-Cj/go-gen/cmd/flags"
 	"github.com/spf13/cobra"
 )
 
 var fastapiCmd = &cobra.Command{
 	Use:     "fastapi",
-	Short:   "",
-	Example: "",
+	Short:   "Scaffold for Quickly Generating Python Language FastAPI Framework",
+	Example: "gen fastapi --type=[norm,easy]",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("fastapi")
 	},
@@ -16,4 +17,16 @@ var fastapiCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(fastapiCmd)
+
+	fastapiCmd.Flags().StringVarP(&flags.Name, "name", "n", "", "Project Name")
+	fastapiCmd.Flags().BoolVarP(&flags.Db, "db", "", true, "Project with database")
+
+	fastapiCmd.Flags().BoolVarP(&flags.PrismaORM, "prisma", "p", true, "Database ORM and Migration")
+	fastapiCmd.Flags().StringVarP(&flags.TypeFlag, "type", "t", "norm", "Template Rule Type")
+	fastapiCmd.Flags().StringVarP(&flags.DbConnFlag, "dbConn", "d", "", "Database Connection String")
+	fastapiCmd.Flags().StringVarP(&flags.RdbConnFlag, "redisConn", "r", "", "Redis Database Connection String")
+
+	fastapiCmd.MarkFlagRequired("name")
+	fastapiCmd.MarkFlagRequired("db")
+
 }

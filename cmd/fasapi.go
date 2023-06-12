@@ -23,8 +23,6 @@ func init() {
 
 	fastapiCmd.Flags().BoolVarP(&flags.PrismaORM, "prisma", "p", true, "Database ORM and Migration")
 	fastapiCmd.Flags().StringVarP(&flags.TypeFlag, "type", "t", "norm", "Template Rule Type")
-	fastapiCmd.Flags().StringVarP(&flags.DbConnFlag, "dbConn", "d", "", "Database Connection String")
-	fastapiCmd.Flags().StringVarP(&flags.RdbConnFlag, "redisConn", "r", "", "Redis Database Connection String")
 
 	fastapiCmd.MarkFlagRequired("name")
 	fastapiCmd.MarkFlagRequired("db")

@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	//run.Clone()
 	cmd.Execute()
 }

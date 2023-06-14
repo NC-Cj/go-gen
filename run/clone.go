@@ -25,16 +25,22 @@ func (c *CloneObject) Generate() {
 	time.Sleep(time.Second * 2)
 
 	if c.Prisma {
-		c.checkPrismaPack()
+		checkNPM()
+		checkPrisma()
 		c.runPrisma()
 	}
 
-	fmt.Println("OK, I'm done, Have fun programming :)")
+	fmt.Println(`OK, I'm done, Have fun programming :)
+		"Go Enter "code ."`)
 }
 
 func (c *CloneObject) clone() {
 	cmd := exec.Command("git", "clone", c.RepositoryAddress)
-	cmdRun(cmd)
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Please check if you can clone the github project normally")
+		os.Exit(1)
+	}
 }
 
 func (c *CloneObject) removeGitFolder() {
@@ -56,24 +62,24 @@ func (c *CloneObject) renameProjectName() {
 	}
 }
 
-func (c *CloneObject) checkPrismaPack() {
-	fmt.Println("Check execution environment...")
-	npm := exec.Command("npm", "list", "-g", "prisma")
-	output, err := npm.CombinedOutput()
-	if err != nil {
-		fmt.Println(ee, err)
-		os.Exit(1)
-	}
-
-	strOutput := string(output)
-	if find := strings.Contains(strOutput, "prisma"); find {
-		return
-	}
-	fmt.Println("Downloading Prisma, please make sure `npm` is installed on the computer...")
-	install := exec.Command("npm", "install", "-g", "prisma")
-	cmdRun(install)
-	fmt.Println("Successfully installed package...")
-}
+//func (c *CloneObject) checkPrismaPack() {
+//	fmt.Println("Check execution environment...")
+//	npm := exec.Command("npm", "list", "-g", "prisma")
+//	output, err := npm.CombinedOutput()
+//	if err != nil {
+//		fmt.Println(ee, err)
+//		os.Exit(1)
+//	}
+//
+//	strOutput := string(output)
+//	if find := strings.Contains(strOutput, "prisma"); find {
+//		return
+//	}
+//	fmt.Println("Downloading Prisma, please make sure `npm` is installed on the computer...")
+//	install := exec.Command("npm", "install", "-g", "prisma")
+//	cmdRun(install)
+//	fmt.Println("Successfully installed package...")
+//}
 
 func (c *CloneObject) runPrisma() {
 	err := os.Chdir(".\\" + c.ProjectName + "\\")
@@ -91,4 +97,28 @@ func cmdRun(cmd *exec.Cmd) {
 		fmt.Println(ee, err)
 		os.Exit(1)
 	}
+}
+func cmdOutput(cmd *exec.Cmd) string {
+	output, _ := cmd.CombinedOutput()
+	strOutput := string(output)
+	return strOutput
+}
+func checkNPM() {
+	cmd := exec.Command("npm", "-v")
+	s := cmdOutput(cmd)
+	if s == "" {
+		fmt.Println("Missing necessary environment, please install `node` or `npm` package management")
+		os.Exit(0)
+	}
+	return
+}
+
+func checkPrisma() {
+	cmd := exec.Command("npm", "list", "-g", "prisma")
+	s := cmdOutput(cmd)
+	if ok := strings.Contains(s, "prisma"); ok {
+		return
+	}
+	fmt.Println("Missing necessary environment, you need to execute `npm install - g prisma` separately")
+	os.Exit(0)
 }

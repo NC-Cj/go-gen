@@ -9,7 +9,7 @@ Scaffolding for quickly generating frameworks for some languages.
 
 ## 使用
 
-- Windows：您可以直接到发布的版本中去下载可执行文件，并把它加入到您电脑的环境变量中快速用作与开发
+- Windows：您可以直接到发布的版本中去下载可执行文件(**gen.exe**)，并把它加入到您电脑的环境变量中快速用作与开发
 - 对于其它系统使用者，您可以clone最新代码去构建打包
 
 ## 目前进度

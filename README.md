@@ -12,6 +12,12 @@ Scaffolding for quickly generating frameworks for some languages.
 - Windows：您可以直接到发布的版本中去下载可执行文件(**gen.exe**)，并把它加入到您电脑的环境变量中快速用作与开发
 - 对于其它系统使用者，您可以clone最新代码去构建打包
 
+----
+
+1. 使用gen之前，您应该确保可以征程通过git clone所有 github 上的开源项目
+2. 请确保您的电脑上有node12以上的环境（**任何框架构建工程时，如果未指定--prisma=false，都将使用到prisma框架。详细见文章末尾**）
+3. 如果你不能clone github的项目，你应该需要把`id_rsa.pub`加入到你的 github 个人访问令牌中
+
 ## 目前进度
 
 - 目前支持python语言的fastapi命令构建项目

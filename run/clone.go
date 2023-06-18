@@ -18,7 +18,7 @@ type CloneObject struct {
 var ee = "Encountered an error: "
 
 func (c *CloneObject) Generate() {
-	fmt.Println("Get remote repository...")
+	//fmt.Println("Get remote repository...")
 	c.clone()
 	c.removeGitFolder()
 	c.renameProjectName()
